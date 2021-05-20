@@ -14,8 +14,10 @@ describe('CharListContainer container tests', () => {
       screen.getByText('L O A D I N G');
   
       // Check that 10 image cards load and display in DOM
+      // Compare to snapshots
       const images = await screen.findAllByRole('img')
       expect(images).toHaveLength(10)
+      expect(images).toMatchSnapshot()
 
       // Click next page button
       const nextPage = await screen.getByRole('button', {name: 'NEXT PAGE'})
