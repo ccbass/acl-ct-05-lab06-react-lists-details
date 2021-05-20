@@ -33,6 +33,9 @@ function useAvatarFetchChars() {
     return {data, loading, changePage}
 }
 
+
+
+
 function useAvatarFetchOneChar(url) {
     const [loading, setLoading] = useState('idle')
     const [data, setData] = useState(null)
