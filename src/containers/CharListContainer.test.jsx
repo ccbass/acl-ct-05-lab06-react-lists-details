@@ -2,25 +2,32 @@ import React from 'react';
 import { render, screen,waitFor } from '@testing-library/react';
 import CharListContainer from './CharListContainer'
 import { BrowserRouter as Router } from 'react-router-dom'
-
+import userEvent from '@testing-library/user-event';
 
 
 describe('CharListContainer container tests', () => {
 
-  it('displays a loading screen', async () => {
-    render(<Router><CharListContainer /></Router>);
-    screen.getByText('L O A D I N G');
-  });
-  
-  
-  it('displays 10 character cards on the page', async () => {
+    it('runs all container tests', async () => {
       render(<Router><CharListContainer /></Router>);
-      
-      const test = await screen.findAllByRole('img', {} ,{timeout: 2000})
-      expect(test).toHaveLength(10)
+
+      // Check for loading text to appear before API resolves
+      screen.getByText('L O A D I N G');
+  
+      // Check that 10 image cards load and display in DOM
+      const images = await screen.findAllByRole('img')
+      expect(images).toHaveLength(10)
+
+      // Click next page button
+      const nextPage = await screen.getByRole('button', {name: 'NEXT PAGE'})
+      userEvent.click(nextPage)
+
+      // Wait for DOM to update and check if new character is listed.
+      return waitFor(async () => {
+          const character = await screen.findByText('Chow')
+          expect(character).toBeInDOM
+      })
+
     });
-    
-    
-
-
-});
+      
+      
+  });
