@@ -13,9 +13,13 @@ function CharDetailContainer() {
     if (data){
         return (
             <div>
-                <h2>Details for: {data.name}</h2>
-                {data.name}
-    
+                <h2>{data.name}'s Details</h2>
+                <section>
+                    {<img src={data.photoUrl} />}
+                    <h3>{data.name}</h3>
+                    <h4>{data.affiliation}</h4>
+                    <p>{data.profession}</p>
+                </section>
             </div>
         )
     }

@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 
 function Character({character}) {
     return (
-        <div>
+        <div className='character'>
+            <img src={character.photoUrl} />
             <Link to={`/${character._id}`}>{character.name}</Link>
         </div>
     )

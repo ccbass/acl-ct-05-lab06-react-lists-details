@@ -4,7 +4,7 @@ import Character from './Character'
 
 function CharList({characters}) {
     return (
-        <div>
+        <div className={'characterlist'}>
             {characters && characters
                 .map(char => 
                     <div key={char._id}>
