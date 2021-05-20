@@ -24,7 +24,7 @@ function CharDetailContainer() {
         )
     }
     else{
-        return null
+        return <h1>L O A D I N G</h1>
     }
 }
 
