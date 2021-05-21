@@ -4,8 +4,34 @@ import CharListContainer from './CharListContainer';
 import { BrowserRouter as Router } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 
+import { avatarListData, avatarListDataPageTwo } from '../../fixtures/avatar-data';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+
+
+const server = setupServer(
+  rest.get(
+    'https://last-airbender-api.herokuapp.com/api/v1/characters?perPage=10&page=1',
+    (req, res, ctx) => {
+      return res(
+        ctx.json(avatarListData)
+      );
+    }
+  ),
+  rest.get(
+    'https://last-airbender-api.herokuapp.com/api/v1/characters?perPage=10&page=2',
+    (req, res, ctx) => {
+      return res(
+        ctx.json(avatarListDataPageTwo)
+      );
+    }
+  )
+);
+
 
 describe('CharListContainer container tests', () => {
+  beforeAll(() => server.listen());
+  afterAll(() => server.close());
 
   it('runs all container tests', async () => {
     render(<Router><CharListContainer /></Router>);
@@ -24,9 +50,9 @@ describe('CharListContainer container tests', () => {
     userEvent.click(nextPage);
 
     // Wait for DOM to update and check if new character is listed.
-    return waitFor(async () => {
-      const character = await screen.findByText('Chow');
-      expect(character).toBeInDOM;
+    waitFor(async () => {
+      const character = await screen.findByText('Chit Sang\'s friend');
+      expect(character).toBeInTheDocument();
     });
 
   });

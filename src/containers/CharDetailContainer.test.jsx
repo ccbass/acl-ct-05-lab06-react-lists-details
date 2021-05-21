@@ -3,8 +3,25 @@ import { render, screen } from '@testing-library/react';
 import CharDetailContainer from './CharDetailContainer';
 import { MemoryRouter, Route } from 'react-router-dom';
 
+import { avatarDetailData } from '../../fixtures/avatar-data';
+import { rest } from 'msw';
+import { setupServer } from 'msw/node';
+
+
+const server = setupServer(
+  rest.get(
+    'https://last-airbender-api.herokuapp.com/api/v1/characters/5cf5679a915ecad153ab68d5',
+    (req, res, ctx) => {
+      return res(
+        ctx.json(avatarDetailData)
+      );
+    }
+  )
+);
 
 describe('CharDetailContainer container tests', () => {
+  beforeAll(() => server.listen());
+  afterAll(() => server.close());
 
   it('detailed character tests', async () => {
     render(
@@ -23,9 +40,9 @@ describe('CharDetailContainer container tests', () => {
 
     // Check if character data is in DOM
     const character = await screen.findByText('Earth Kingdom Air Force');
-    expect(character).toBeInDOM;
+    expect(character).toBeInTheDocument();
     const characterJob = await screen.findByText('Airman');
-    expect(characterJob).toBeInDOM;
+    expect(characterJob).toBeInTheDocument();
 
   });
       
