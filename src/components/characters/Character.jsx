@@ -1,25 +1,25 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 
-function Character({character}) {
-    return (
-        <div className='character'>
-            <img src={character.photoUrl} />
-            <Link to={`/${character._id}`}>{character.name}</Link>
-        </div>
-    )
+function Character({ character }) {
+  return (
+    <div className="character">
+      <img src={character.photoUrl} />
+      <Link to={`/${character._id}`}>{character.name}</Link>
+    </div>
+  );
 }
 
 Character.propTypes = {
-    character: PropTypes.shape({
-            _id: PropTypes.string.isRequired,
-            allies: PropTypes.array.isRequired,
-            enemies: PropTypes.array.isRequired,
-            photoUrl: PropTypes.string,
-            name: PropTypes.string.isRequired,
-        })
-}
+  character: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    allies: PropTypes.array.isRequired,
+    enemies: PropTypes.array.isRequired,
+    photoUrl: PropTypes.string,
+    name: PropTypes.string.isRequired,
+  })
+};
 
-export default Character
+export default Character;
