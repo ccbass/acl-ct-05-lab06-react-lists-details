@@ -1,11 +1,11 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useAvatarFetchOneChar } from '../hooks/characters/CharHooks';
+import { useAvatarFetch } from '../hooks/characters/CharHooks';
 
 
 function CharDetailContainer() {
   const { id } = useParams();
-  const { loading, data } = useAvatarFetchOneChar(id);
+  const { loading, data } = useAvatarFetch(id);
 
   if(data && loading !== 'loading'){
     return (

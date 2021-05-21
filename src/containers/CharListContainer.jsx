@@ -1,11 +1,11 @@
 import React from 'react';
-import { useAvatarFetchChars } from '../hooks/characters/CharHooks';
+import { useAvatarFetch } from '../hooks/characters/CharHooks';
 import CharList from '../components/characters/CharList';
 
 
 
 function CharListContainer() {
-  const { data, loading, changePage } = useAvatarFetchChars();
+  const { data, loading, changePage } = useAvatarFetch();
 
   return (
     <div>
